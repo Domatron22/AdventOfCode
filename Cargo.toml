@@ -1,0 +1,28 @@
+[package]
+name = "advent-of-code"
+version = "0.1.0"
+edition = "2021"
+authors = ["Domatron22"]
+description = "A Coding Holiday Extravaganza"
+readme = "README.md"
+repository = "https://github.com/Domatron22/AdventOfCode"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# No external dependencies needed for this project
+
+[dev-dependencies]
+# Optional: add testing libraries if needed
+# For example:
+# proptest = "1.0"
+
+[[bin]]
+name = "historian-hysteria"
+path = "src/main/rust/d01/main.rs"
+
+[profile.release]
+# Optimize for performance
+opt-level = 3
+lto = true
+codegen-units = 1
