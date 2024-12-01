@@ -14,11 +14,9 @@ fn parse_lists_from_file(filename: &str) -> Result<(Vec<i32>, Vec<i32>), Box<dyn
         let line = line?;
         let parts: Vec<&str> = line.trim().split_whitespace().collect();
 
-        if parts.len() == 2 {
-            if let (Ok(left), Ok(right)) = (parts[0].parse::<i32>(), parts[1].parse::<i32>()) {
-                left_list.push(left);
-                right_list.push(right);
-            }
+        if let (Ok(left), Ok(right)) = (parts[0].parse::<i32>(), parts[1].parse::<i32>()) {
+            left_list.push(left);
+            right_list.push(right);
         }
     }
 
@@ -26,13 +24,13 @@ fn parse_lists_from_file(filename: &str) -> Result<(Vec<i32>, Vec<i32>), Box<dyn
 }
 
 fn calculate_distance(left_list: &[i32], right_list: &[i32]) -> i32 {
-    // Sort both lists
+    // Sort both lists to ensure we pair up the smallest numbers first
     let mut sorted_left = left_list.to_vec();
     let mut sorted_right = right_list.to_vec();
     sorted_left.sort_unstable();
     sorted_right.sort_unstable();
 
-    // Calculate total distance
+    // Calculate the total distance by pairing up elements and finding their absolute difference
     sorted_left.iter()
         .zip(sorted_right.iter())
         .map(|(left, right)| (left - right).abs())
@@ -40,6 +38,7 @@ fn calculate_distance(left_list: &[i32], right_list: &[i32]) -> i32 {
 }
 
 fn calculate_similarity_score(left_list: &[i32], right_list: &[i32]) -> i32 {
+    // Calculate the amount of times the number in the left list appears in the right list, multiply and sum it up
     left_list.iter()
         .map(|left | (left * right_list.iter().filter(|x| **x == *left).count() as i32).abs())
         .sum()

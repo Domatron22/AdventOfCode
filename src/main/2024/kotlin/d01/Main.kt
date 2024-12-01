@@ -13,10 +13,8 @@ fun parseListsFromFile(filename: String): Pair<List<Int>, List<Int>> {
 
         lines.forEach { line ->
             val parts = line.trim().split(Regex("\\s+"))
-            if (parts.size == 2) {
-                parts[0].toIntOrNull()?.let { leftList.add(it) }
-                parts[1].toIntOrNull()?.let { rightList.add(it) }
-            }
+            parts[0].toIntOrNull()?.let { leftList.add(it) }
+            parts[1].toIntOrNull()?.let { rightList.add(it) }
         }
 
         Pair(leftList, rightList)
