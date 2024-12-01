@@ -19,7 +19,7 @@ repository = "https://github.com/Domatron22/AdventOfCode"
 
 [[bin]]
 name = "historian-hysteria"
-path = "src/main/rust/d01/main.rs"
+path = "src/main/2024/rust/d01/main.rs"
 
 [profile.release]
 # Optimize for performance

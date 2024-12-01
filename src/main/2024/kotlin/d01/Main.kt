@@ -41,7 +41,7 @@ fun calculateSimilarityScore(leftList: List<Int>, rightList: List<Int>): Int{
 }
 
 fun main() {
-    val (leftList, rightList) = parseListsFromFile("src/main/resources/01/input.txt")
+    val (leftList, rightList) = parseListsFromFile("src/main/2024/resources/01/input.txt")
 
     // println("Left List: $leftList")
     // println("Right List: $rightList")

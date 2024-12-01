@@ -47,7 +47,7 @@ fn calculate_similarity_score(left_list: &[i32], right_list: &[i32]) -> i32 {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let (left_list, right_list) = parse_lists_from_file("src/main/resources/01/input.txt")?;
+    let (left_list, right_list) = parse_lists_from_file("src/main/2024/resources/01/input.txt")?;
 
     // println!("Left List: {:?}", left_list);
     // println!("Right List: {:?}", right_list);
