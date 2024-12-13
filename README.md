@@ -28,10 +28,12 @@ AdventOfCode/
 
 ### 🏆 Advent of Code Completion Status
 
-| Day | Challenge          | Status | Difficulty |
-|-----|--------------------|--------|------------|
-| 1   | Historian Hysteria | ✅      | 🟢 EZ-PZ   |
-| ... | TBD                | ...    | ...        |
+| Day | Challenge          | Status | Difficulty               |
+|-----|--------------------|--------|--------------------------|
+| 1   | Historian Hysteria | ✅ ✅    | 🟢 EZ-PZ                 |
+| 2   | Red-Nosed Reports  | ✅ ✅    | 🟢 Not Bad               |
+| 3   | Mull It Over       | ✅ ❎    | 🟢 Reasonably Regex-able |
+| ... | TBD                | ...    | ...                      |
 
 
 ### 📜 The Coder's Oath
