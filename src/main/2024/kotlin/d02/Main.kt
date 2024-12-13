@@ -2,45 +2,34 @@ package d02
 
 import java.io.File
 
-fun parseListsFromFile(filename: String): List<List<Int>> {
-    return try {
-        val lines = File(filename)
-            .readLines()
-            .filter { it.trim().isNotEmpty() }
-
-        val lineList = mutableListOf<List<Int>>()
-
-        lines.forEach { line ->
-            val lineItems = mutableListOf<Int>()
-            val parts = line.trim().split(Regex("\\s+"))
-            parts.forEach {
-                it.toIntOrNull()?.let { lineItems.add(it) }
-            }
-            lineList.add(lineItems)
+/**
+ * Parse lists from a given file
+ */
+fun parseListsFromFile(filename: String): List<List<Int>> =
+    try {
+        File(filename).useLines { lines ->
+            lines.filter { it.isNotEmpty() }
+                .map { line ->
+                    line.trim()
+                        .split(Regex("\\s+"))
+                        .mapNotNull { it.toIntOrNull() }
+                }
+                .toList()
         }
-
-        lineList
     } catch (e: Exception) {
         println("Error reading file: ${e.message}")
-        emptyList<List<Int>>()
+        emptyList()
     }
-}
 
 /**
+ * Check a report to see if it follows these safety checks:
+ *  - The levels are either all increasing or all decreasing.
+ *  - Any two adjacent levels differ by at least one and at most three.
+ *
  * curve:
  *  1 - increase
  *  0 - decrease
  */
-
-fun safetyAlgorithmWithDampeners(reports: List<Int>): Boolean {
-    if (reports.size < 2) return true
-
-    // Try removing each number and check if remaining sequence is valid
-    return isValidSequence(reports) || reports.indices.any { skipIndex ->
-        isValidSequence(reports.filterIndexed { index, _ -> index != skipIndex })
-    }
-}
-
 private fun isValidSequence(reports: List<Int>): Boolean {
     if (reports.size < 2) return true
 
@@ -63,16 +52,23 @@ private fun isValidSequence(reports: List<Int>): Boolean {
         }
 }
 
-fun checkSafety() {
-    val safetyCount = parseListsFromFile("src/main/2024/resources/02/input.txt")
-        .count(::isValidSequence)
-    print("%s reports are safe\n".format(safetyCount))
-
-    val safetyCountDampened = parseListsFromFile("src/main/2024/resources/02/input.txt")
-        .count(::safetyAlgorithmWithDampeners)
-    print("%s reports are safe with active dampeners\n".format(safetyCountDampened))
+/**
+ * Safety checks with updated tolerance levels, only one number in the sequence can be a bad level and the report will still be safe.
+ */
+fun safetyAlgorithmWithDampeners(reports: List<Int>): Boolean =
+    reports.size < 2 || isValidSequence(reports) ||
+    reports.indices.any { skipIndex ->
+        isValidSequence(reports.filterIndexed { index, _ -> index != skipIndex })
 }
 
-fun main(){
-    checkSafety()
+/**
+ * Specify file and run safety checks
+ */
+fun checkSafety() = File("src/main/2024/resources/02/input.txt").let { file ->
+    parseListsFromFile(file.path).let { lists ->
+        println("${lists.count(::isValidSequence)} reports are safe")
+        println("${lists.count(::safetyAlgorithmWithDampeners)} reports are safe with active dampeners")
+    }
 }
+
+fun main() = checkSafety()
